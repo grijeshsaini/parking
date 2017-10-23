@@ -1,31 +1,35 @@
 package com.parking.service.impl;
 
-import com.parking.dto.Owner;
-import com.parking.dto.OwnerBuilder;
-import com.parking.exceptions.DataNotFoundException;
-import com.parking.model.OwnerDetails;
-import com.parking.repository.OwnerRepository;
-import com.parking.service.ParkingService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.parking.dto.PersonDetails;
+import com.parking.exceptions.DataNotFoundException;
+import com.parking.model.Parking;
+import com.parking.repository.OwnerRepository;
+import com.parking.service.ParkingService;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
 
-    private OwnerRepository ownerRepository;
+	private OwnerRepository ownerRepository;
 
-    @Autowired
-    public ParkingServiceImpl(OwnerRepository ownerRepository) {
-        this.ownerRepository = ownerRepository;
-    }
+	@Autowired
+	public ParkingServiceImpl(OwnerRepository ownerRepository) {
+		this.ownerRepository = ownerRepository;
+	}
 
-    @Override
-    public Owner getOwnerDetails(final String vehicleRegNpo) {
-        Optional<OwnerDetails> detailsOptional = ownerRepository.findOwnerDetailsByVehicleNo(vehicleRegNpo);
+	@Override
+	public PersonDetails getOwnerDetails(final String vehicleRegNo) {
+		Optional<Parking> parkingDetailsOptional = ownerRepository.findPersonExcludeVehicles(vehicleRegNo);
 
-        return detailsOptional.map(details -> new OwnerBuilder().setId(details.getId()).setName(details.getOwnerName()).createOwner())
-                .orElseThrow(() ->new DataNotFoundException("Data not available for id" + vehicleRegNpo));
-    }
+		return parkingDetailsOptional
+				.map(details -> new PersonDetails.Builder().name(details.getPerson().getName())
+						.building(details.getPerson().getBuilding()).emailAddress(details.getPerson().getEmailAddress())
+						.floor(details.getPerson().getFloor()).mobileNumber(details.getPerson().getMobileNumber())
+						.seat(details.getPerson().getSeat()).workNumber(details.getPerson().getWorkNumber()).build())
+				.orElseThrow(() -> new DataNotFoundException("Data not available for id" + vehicleRegNo));
+	}
 }

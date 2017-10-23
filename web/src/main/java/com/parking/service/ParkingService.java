@@ -1,8 +1,8 @@
 package com.parking.service;
 
-import com.parking.dto.Owner;
+import com.parking.dto.PersonDetails;
 
 public interface ParkingService {
 
-    Owner getOwnerDetails(String vehicleRegNpo);
+    PersonDetails getOwnerDetails(String vehicleRegNpo);
 }

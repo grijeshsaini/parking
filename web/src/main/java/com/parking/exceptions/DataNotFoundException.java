@@ -2,7 +2,9 @@ package com.parking.exceptions;
 
 public class DataNotFoundException extends RuntimeException{
 
-    public DataNotFoundException(String message) {
+	private static final long serialVersionUID = 1L;
+
+	public DataNotFoundException(String message) {
         super(message);
     }
 

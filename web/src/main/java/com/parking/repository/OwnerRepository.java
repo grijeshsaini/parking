@@ -1,13 +1,16 @@
 package com.parking.repository;
 
-import com.parking.model.OwnerDetails;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
-@Repository
-public interface OwnerRepository extends MongoRepository<OwnerDetails, String> {
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
-    Optional<OwnerDetails> findOwnerDetailsByVehicleNo(String vehicleNo);
+import com.parking.model.Parking;
+
+@Repository
+public interface OwnerRepository extends MongoRepository<Parking, String> {
+
+	@Query(value="{}", fields="{person : 1, vehicles: 0 }")
+    Optional<Parking> findPersonExcludeVehicles(String vehicleNo);
 }
