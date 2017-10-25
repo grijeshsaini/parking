@@ -6,60 +6,37 @@ public class VehicleDetails {
 	private String make;
 	private String model;
 	private String type;
-	private String color;
+	private String colour;
 
-	/**
-	 * @return the regNo
-	 */
 	public String getRegNo() {
 		return regNo;
 	}
 
-	/**
-	 * @return the make
-	 */
 	public String getMake() {
 		return make;
 	}
 
-	/**
-	 * @return the model
-	 */
 	public String getModel() {
 		return model;
 	}
 
-	/**
-	 * @return the type
-	 */
 	public String getType() {
 		return type;
 	}
 
-	/**
-	 * @return the color
-	 */
-	public String getColor() {
-		return color;
+	public String getColour() {
+		return colour;
 	}
 
-	/**
-	 * Default constructor
-	 */
 	public VehicleDetails() {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 
 		return "Vehicle [regNo= " + regNo + ", make=" + make + ", model=" + model +
-				", type=" + type + ", color=" + color + "]";
+				", type=" + type + ", colour=" + colour + "]";
 
 	}
 
@@ -69,7 +46,7 @@ public class VehicleDetails {
 		private String make;
 		private String model;
 		private String type;
-		private String color;
+		private String colour;
 
 		public Builder regNo(String regNo) {
 			this.regNo = regNo;
@@ -91,8 +68,8 @@ public class VehicleDetails {
 			return this;
 		}
 
-		public Builder color(String color) {
-			this.color = color;
+		public Builder colour(String colour) {
+			this.colour = colour;
 			return this;
 		}
 
@@ -106,7 +83,7 @@ public class VehicleDetails {
 		this.make = builder.make;
 		this.model = builder.model;
 		this.type = builder.type;
-		this.color = builder.color;
+		this.colour = builder.colour;
 	}
 
 }

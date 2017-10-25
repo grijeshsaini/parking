@@ -82,7 +82,7 @@ class ParkingServiceTest {
 		assertNotNull(parking);
 		assertEquals(parking.getId(), parkingDetails.getId());
 		assertEquals(parking.getPerson().getName(), parkingDetails.getPerson().getName());
-		assertEquals(parking.getVehicles().get(0).getColor(), parkingDetails.getVehicles().get(0).getColor());
+		assertEquals(parking.getVehicles().get(0).getColour(), parkingDetails.getVehicles().get(0).getColour());
 		verify(parkingRepository, times(1)).findParkingById(Matchers.eq(parkingId));
 	}
 
@@ -99,7 +99,7 @@ class ParkingServiceTest {
 		Person ownerDetails = new Person.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com")
 				.building("9c").seat("").workNumber("77").build();
 		List<Vehicle> vehicleList = new ArrayList<>();
-		vehicleList.add(new Vehicle.Builder().color("blue").make("audi").reg("12345").build());
+		vehicleList.add(new Vehicle.Builder().colour("blue").make("audi").reg("12345").build());
 
 		return new Parking("1", ownerDetails, vehicleList);
 	}

@@ -6,7 +6,7 @@ public class Vehicle {
 	private String make;
 	private String model;
 	private String type;
-	private String color;
+	private String colour;
 
 	public String getreg() {
 		return reg;
@@ -24,8 +24,8 @@ public class Vehicle {
 		return type;
 	}
 
-	public String getColor() {
-		return color;
+	public String getColour() {
+		return colour;
 	}
 
 	public Vehicle() {
@@ -36,7 +36,7 @@ public class Vehicle {
 	public String toString() {
 
 		return "Vehicle [reg= " + reg + ", make=" + make + ", model=" + model +
-				", type=" + type + ", color=" + color + "]";
+				", type=" + type + ", colour=" + colour + "]";
 
 	}
 
@@ -46,7 +46,7 @@ public class Vehicle {
 		private String make;
 		private String model;
 		private String type;
-		private String color;
+		private String colour;
 
 		public Builder reg(String reg) {
 			this.reg = reg;
@@ -68,8 +68,8 @@ public class Vehicle {
 			return this;
 		}
 
-		public Builder color(String color) {
-			this.color = color;
+		public Builder colour(String colour) {
+			this.colour = colour;
 			return this;
 		}
 
@@ -83,7 +83,7 @@ public class Vehicle {
 		this.make = builder.make;
 		this.model = builder.model;
 		this.type = builder.type;
-		this.color = builder.color;
+		this.colour = builder.colour;
 	}
 
 }
