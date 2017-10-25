@@ -32,12 +32,6 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: spring_boot_version
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: spring_boot_version
     compile group: 'org.mockito', name: 'mockito-all', version: mockito_version
-    
-    // https://mvnrepository.com/artifact/fr.delthas/javaskype
-	compile group: 'fr.delthas', name: 'javaskype', version: '1.0.21'
-
-    
-
 
     compile "io.springfox:springfox-swagger2:$swagger"
     compile "io.springfox:springfox-swagger-ui:$swagger"

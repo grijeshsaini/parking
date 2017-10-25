@@ -20,9 +20,7 @@ public class ParkingServiceImpl implements ParkingService {
 
 	private OwnerRepository ownerRepository;
 	private ParkingRepository parkingRepository;
-	private Function<Parking, ParkingDetails> function = (parking) -> {
-		return new ParkingDetails(parking.getId(), Util.buildPersonDetails(parking), Util.buildVehicleDetails(parking));
-	};
+	private Function<Parking, ParkingDetails> parkingDetailsConverter = (parking) -> new ParkingDetails(parking.getId(), Util.buildPersonDetails(parking), Util.buildVehicleDetails(parking));
 
 	@Autowired
 	public ParkingServiceImpl(OwnerRepository ownerRepository, ParkingRepository parkingRepository) {
@@ -32,17 +30,17 @@ public class ParkingServiceImpl implements ParkingService {
 
 	@Override
 	public PersonDetails getOwnerDetails(final String vehicleRegNo) {
-		Optional<Parking> parkingDetailsOptional = ownerRepository.findPersonExcludeVehicles(vehicleRegNo);
+		Optional<Parking> parkingDetailsOptional = ownerRepository.findPersonByRegNo(vehicleRegNo);
 
-		return parkingDetailsOptional.map(details -> Util.buildPersonDetails(details))
+		return parkingDetailsOptional.map(Util::buildPersonDetails)
 				.orElseThrow(() -> new DataNotFoundException("Data not available for id" + vehicleRegNo));
 	}
 
 	@Override
 	public ParkingDetails getParkingDetails(String parkingId) {
-		Optional<Parking> parkingDetailsOptional = parkingRepository.findParking(parkingId);
+		Optional<Parking> parkingDetailsOptional = parkingRepository.findParkingById(parkingId);
 
-		return parkingDetailsOptional.map(function)
+		return parkingDetailsOptional.map(parkingDetailsConverter)
 				.orElseThrow(() -> new DataNotFoundException("Data not available for id" + parkingId));
 	}
 }

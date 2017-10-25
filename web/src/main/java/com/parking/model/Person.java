@@ -82,13 +82,11 @@ public class Person {
 	 */
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Person [name= ").append(name).append(", mobileNumber=").append(mobileNumber)
-				.append(", workNumber=").append(workNumber).append(", emailAddress=").append(emailAddress)
-				.append(", building=").append(building).append(", floor=").append(floor).append(", seat=").append(seat)
-				.append("]");
 
-		return builder.toString();
+		return "Person [name= " + name + ", mobileNumber=" + mobileNumber +
+				", workNumber=" + workNumber + ", emailAddress=" + emailAddress +
+				", building=" + building + ", floor=" + floor + ", seat=" + seat +
+				"]";
 	}
 
 	public static class Builder {

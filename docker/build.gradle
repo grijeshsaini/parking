@@ -1,0 +1,45 @@
+group 'com.learning'
+version 'latest'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+    }
+}
+
+apply plugin: 'docker'
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(':web')
+}
+
+jar {
+    baseName = "parking"
+}
+
+bootRepackage {
+    mainClass = 'com.parking.Application'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}

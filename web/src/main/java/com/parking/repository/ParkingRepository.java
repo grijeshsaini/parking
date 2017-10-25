@@ -10,5 +10,5 @@ import com.parking.model.Parking;
 @Repository
 public interface ParkingRepository extends MongoRepository<Parking, String>{
 
-	Optional<Parking> findParking(String parkingId);
+	Optional<Parking> findParkingById(String parkingId);
 }

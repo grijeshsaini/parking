@@ -53,13 +53,9 @@ public class ParkingControllerTest {
 		when(parkingService.getOwnerDetails((any()))).thenThrow(new DataNotFoundException("Data not found"));
 		when(parkingService.getParkingDetails((any()))).thenThrow(new DataNotFoundException("Data not found"));
 
-		assertThrows(DataNotFoundException.class, () -> {
-			parkingController.getOwnerDetails("1234");
-		});
+		assertThrows(DataNotFoundException.class, () -> parkingController.getOwnerDetails("1234"));
 
-		assertThrows(DataNotFoundException.class, () -> {
-			parkingController.getParkingDetails("1234");
-		});
+		assertThrows(DataNotFoundException.class, () -> parkingController.getParkingDetails("1234"));
 	}
 
 	@Test
@@ -76,7 +72,7 @@ public class ParkingControllerTest {
 	}
 
 	private ParkingDetails createParkingObject() {
-		List<VehicleDetails> vehicleList = new ArrayList<VehicleDetails>();
+		List<VehicleDetails> vehicleList = new ArrayList<>();
 		vehicleList.add(new VehicleDetails.Builder().color("blue").make("audi").regNo("12345").build());
 
 		return new ParkingDetails("123", new PersonDetails.Builder().name("Test").emailAddress("test@abc.com").build(),

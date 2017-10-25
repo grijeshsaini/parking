@@ -57,11 +57,9 @@ public class VehicleDetails {
 	 */
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Vehicle [regNo= ").append(regNo).append(", make=").append(make).append(", model=").append(model)
-				.append(", type=").append(type).append(", color=").append(color).append("]");
 
-		return builder.toString();
+		return "Vehicle [regNo= " + regNo + ", make=" + make + ", model=" + model +
+				", type=" + type + ", color=" + color + "]";
 
 	}
 

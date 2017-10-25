@@ -19,7 +19,7 @@ public class Util {
 	public static List<VehicleDetails> buildVehicleDetails(Parking parking) {
 		return parking.getVehicles().stream()
 				.map(vehicle -> new VehicleDetails.Builder().color(vehicle.getColor()).make(vehicle.getMake())
-						.model(vehicle.getModel()).regNo(vehicle.getreg()).type(vehicle.getType()).build())
+						.model(vehicle.getModel()).regNo(vehicle.getreg()).type(vehicle.getType()).color(vehicle.getColor()).build())
 				.collect(Collectors.toList());
 
 	}

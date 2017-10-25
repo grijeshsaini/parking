@@ -1,8 +1,5 @@
 package com.parking.model;
 
-/**
- * Created by grijesh on 07/10/17.
- */
 public class Vehicle {
 
 	private String reg;
@@ -11,60 +8,35 @@ public class Vehicle {
 	private String type;
 	private String color;
 
-	/**
-	 * @return the reg
-	 */
 	public String getreg() {
 		return reg;
 	}
 
-	/**
-	 * @return the make
-	 */
 	public String getMake() {
 		return make;
 	}
 
-	/**
-	 * @return the model
-	 */
 	public String getModel() {
 		return model;
 	}
 
-	/**
-	 * @return the type
-	 */
 	public String getType() {
 		return type;
 	}
 
-	/**
-	 * @return the color
-	 */
 	public String getColor() {
 		return color;
 	}
 
-	/**
-	 * Default constructor
-	 */
 	public Vehicle() {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Vehicle [reg= ").append(reg).append(", make=").append(make).append(", model=").append(model)
-				.append(", type=").append(type).append(", color=").append(color).append("]");
 
-		return builder.toString();
+		return "Vehicle [reg= " + reg + ", make=" + make + ", model=" + model +
+				", type=" + type + ", color=" + color + "]";
 
 	}
 

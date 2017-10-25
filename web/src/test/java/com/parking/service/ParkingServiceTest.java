@@ -50,21 +50,21 @@ class ParkingServiceTest {
 	public void should_return_owner_details() {
 		String vehicleRegNo = "ABCDE1234";
 		Parking parking = createParkingObject();
-		when(ownerRepository.findPersonExcludeVehicles(any())).thenReturn(Optional.of(parking));
+		when(ownerRepository.findPersonByRegNo(any())).thenReturn(Optional.of(parking));
 
 		PersonDetails owner = parkingService.getOwnerDetails(vehicleRegNo);
 
 		assertNotNull(parking);
 		assertEquals(parking.getPerson().getName(), owner.getName());
 		assertEquals(parking.getPerson(), parking.getPerson());
-		verify(ownerRepository, times(1)).findPersonExcludeVehicles(Matchers.eq(vehicleRegNo));
+		verify(ownerRepository, times(1)).findPersonByRegNo(Matchers.eq(vehicleRegNo));
 	}
 
 	@Test
 	@DisplayName("should throw data not found exception when owner records not found")
 	public void should_return_empty_owner_details() {
 		String vehicleRegNpo = "ABCDE1234";
-		when(ownerRepository.findPersonExcludeVehicles(any())).thenReturn(Optional.empty());
+		when(ownerRepository.findPersonByRegNo(any())).thenReturn(Optional.empty());
 
 		assertThrows(DataNotFoundException.class, () -> parkingService.getOwnerDetails(vehicleRegNpo));
 	}
@@ -75,7 +75,7 @@ class ParkingServiceTest {
 		String parkingId = "ABCDE1234";
 
 		Parking parking = createParkingObject();
-		when(parkingRepository.findParking(any())).thenReturn(Optional.of(parking));
+		when(parkingRepository.findParkingById(any())).thenReturn(Optional.of(parking));
 
 		ParkingDetails parkingDetails = parkingService.getParkingDetails(parkingId);
 
@@ -83,14 +83,14 @@ class ParkingServiceTest {
 		assertEquals(parking.getId(), parkingDetails.getId());
 		assertEquals(parking.getPerson().getName(), parkingDetails.getPerson().getName());
 		assertEquals(parking.getVehicles().get(0).getColor(), parkingDetails.getVehicles().get(0).getColor());
-		verify(parkingRepository, times(1)).findParking(Matchers.eq(parkingId));
+		verify(parkingRepository, times(1)).findParkingById(Matchers.eq(parkingId));
 	}
 
 	@Test
 	@DisplayName("should throw data not found exception when parking record not found")
 	public void should_return_empty_parking_details() {
 		String parkingId = "ABCDE1234";
-		when(parkingRepository.findParking(any())).thenReturn(Optional.empty());
+		when(parkingRepository.findParkingById(any())).thenReturn(Optional.empty());
 
 		assertThrows(DataNotFoundException.class, () -> parkingService.getParkingDetails(parkingId));
 	}
@@ -98,11 +98,10 @@ class ParkingServiceTest {
 	private Parking createParkingObject() {
 		Person ownerDetails = new Person.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com")
 				.building("9c").seat("").workNumber("77").build();
-		List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+		List<Vehicle> vehicleList = new ArrayList<>();
 		vehicleList.add(new Vehicle.Builder().color("blue").make("audi").reg("12345").build());
 
-		Parking parking = new Parking("1", ownerDetails, vehicleList);
-		return parking;
+		return new Parking("1", ownerDetails, vehicleList);
 	}
 
 }
