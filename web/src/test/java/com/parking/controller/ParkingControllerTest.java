@@ -8,8 +8,11 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.parking.dto.CarOwners;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,6 +72,20 @@ public class ParkingControllerTest {
 		assertEquals(200, details.getStatusCodeValue());
 		assertSame(parkingDetails, details.getBody());
 
+	}
+
+	@Test
+	@DisplayName("should return all user details")
+	public void should_return_all_user_and_vehicleDetails(){
+		CarOwners carOwners = new CarOwners(Collections.singletonList(new ParkingDetails("id",
+				new PersonDetails.Builder().name("asdas").build(),
+				Collections.emptyList())));
+		when(parkingService.getCarOwners()).thenReturn(carOwners);
+
+		ResponseEntity<CarOwners> response = parkingController.getCarOwners();
+
+		assertEquals(200, response.getStatusCodeValue());
+		assertSame(carOwners, response.getBody());
 	}
 
 	private ParkingDetails createParkingObject() {

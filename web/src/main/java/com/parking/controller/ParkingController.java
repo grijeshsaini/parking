@@ -1,5 +1,6 @@
 package com.parking.controller;
 
+import com.parking.dto.CarOwners;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,11 @@ public class ParkingController {
 	
 	@GetMapping("/parking/{parkingId}")
 	public ResponseEntity<ParkingDetails> getParkingDetails(@PathVariable String parkingId) {
-		ParkingDetails parking = parkingService.getParkingDetails(parkingId);
-		return ResponseEntity.ok(parking);
+		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));
+	}
+
+	@GetMapping("/parking")
+	public ResponseEntity<CarOwners> getCarOwners() {
+		return ResponseEntity.ok(parkingService.getCarOwners());
 	}
 }

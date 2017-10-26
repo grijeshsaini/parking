@@ -1,5 +1,6 @@
 package com.parking.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +12,6 @@ import com.parking.model.Parking;
 public interface ParkingRepository extends MongoRepository<Parking, String>{
 
 	Optional<Parking> findParkingById(String parkingId);
+
+	List<Parking> findAll();
 }

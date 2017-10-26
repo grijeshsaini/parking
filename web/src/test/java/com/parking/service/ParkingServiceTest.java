@@ -1,17 +1,14 @@
 package com.parking.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.parking.dto.CarOwners;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -93,6 +90,20 @@ class ParkingServiceTest {
 		when(parkingRepository.findParkingById(any())).thenReturn(Optional.empty());
 
 		assertThrows(DataNotFoundException.class, () -> parkingService.getParkingDetails(parkingId));
+	}
+
+	@Test
+	@DisplayName("should return all car owners")
+	public void should_return_all_car_owners(){
+		CarOwners carOwners = new CarOwners(Collections.singletonList(new ParkingDetails("id",
+				new PersonDetails.Builder().name("Test").build(),
+				Collections.emptyList())));
+		when(parkingRepository.findAll()).thenReturn(Arrays.asList(createParkingObject(),
+				createParkingObject()));
+		CarOwners owners = parkingService.getCarOwners();
+
+		assertSame(carOwners.getParkingDetails().get(0).getPerson().getName(), owners.getParkingDetails().get(0).getPerson().getName());
+
 	}
 
 	private Parking createParkingObject() {
