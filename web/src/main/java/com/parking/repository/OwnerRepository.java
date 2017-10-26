@@ -11,6 +11,6 @@ import com.parking.model.Parking;
 @Repository
 public interface OwnerRepository extends MongoRepository<Parking, String> {
 
-	@Query(value="{}", fields="{person : 1}")
+	@Query(value="{'vehicles.reg' : ?0}", fields="{person : 1}")
     Optional<Parking> findPersonByRegNo(String vehicleNo);
 }

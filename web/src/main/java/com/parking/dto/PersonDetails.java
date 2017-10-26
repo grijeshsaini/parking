@@ -10,57 +10,36 @@ public class PersonDetails {
 	private String floor;
 	private String seat;
 
-	/**
-	 * Default constructor
-	 */
+	
 	public PersonDetails() {
 	}
 
-	/**
-	 * @return the name
-	 */
+	
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @return the mobileNumber
-	 */
+	
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
-	/**
-	 * @return the workNumber
-	 */
 	public String getWorkNumber() {
 		return workNumber;
 	}
 
-	/**
-	 * @return the emailAddress
-	 */
 	public String getEmailAddress() {
 		return emailAddress;
 	}
 
-	/**
-	 * @return the building
-	 */
 	public String getBuilding() {
 		return building;
 	}
 
-	/**
-	 * @return the floor
-	 */
 	public String getFloor() {
 		return floor;
 	}
 
-	/**
-	 * @return the seat
-	 */
 	public String getSeat() {
 		return seat;
 	}
@@ -76,11 +55,6 @@ public class PersonDetails {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 

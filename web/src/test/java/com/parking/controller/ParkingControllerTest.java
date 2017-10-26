@@ -90,7 +90,7 @@ public class ParkingControllerTest {
 
 	private ParkingDetails createParkingObject() {
 		List<VehicleDetails> vehicleList = new ArrayList<>();
-		vehicleList.add(new VehicleDetails.Builder().color("blue").make("audi").regNo("12345").build());
+		vehicleList.add(new VehicleDetails.Builder().colour("blue").make("audi").regNo("12345").build());
 
 		return new ParkingDetails("123", new PersonDetails.Builder().name("Test").emailAddress("test@abc.com").build(),
 				vehicleList);
