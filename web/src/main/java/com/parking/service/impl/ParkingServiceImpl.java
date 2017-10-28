@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.parking.dto.ParkingDetails;
-import com.parking.dto.PersonDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.model.Parking;
 import com.parking.repository.OwnerRepository;
@@ -23,7 +22,6 @@ public class ParkingServiceImpl implements ParkingService {
 
 	private OwnerRepository ownerRepository;
 	private ParkingRepository parkingRepository;
-	private Function<Parking, ParkingDetails> parkingDetailsConverter = (parking) -> new ParkingDetails(parking.getId(), Util.buildPersonDetails(parking), Util.buildVehicleDetails(parking));
 
 	/*private Function<List<Parking>, List<ParkingDetails>> parkingDetails = (parkings) ->
 			parkings.stream().map(parkingDetailsConverter);
@@ -35,10 +33,10 @@ public class ParkingServiceImpl implements ParkingService {
 	}
 
 	@Override
-	public PersonDetails getOwnerDetails(final String vehicleRegNo) {
+	public ParkingDetails getOwnerDetails(final String vehicleRegNo) {
 		Optional<Parking> parkingDetailsOptional = ownerRepository.findPersonByRegNo(vehicleRegNo);
 
-		return parkingDetailsOptional.map(Util::buildPersonDetails)
+		return parkingDetailsOptional.map(Util::buildParkingDetails)
 				.orElseThrow(() -> new DataNotFoundException("Data not available for id" + vehicleRegNo));
 	}
 
@@ -46,7 +44,7 @@ public class ParkingServiceImpl implements ParkingService {
 	public ParkingDetails getParkingDetails(String parkingId) {
 		Optional<Parking> parkingDetailsOptional = parkingRepository.findParkingById(parkingId);
 
-		return parkingDetailsOptional.map(parkingDetailsConverter)
+		return parkingDetailsOptional.map(Util::buildParkingDetails)
 				.orElseThrow(() -> new DataNotFoundException("Data not available for id" + parkingId));
 	}
 

@@ -17,10 +17,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.parking.dto.ParkingDetails;
-import com.parking.dto.PersonDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.model.Parking;
-import com.parking.model.Person;
 import com.parking.model.Vehicle;
 import com.parking.repository.OwnerRepository;
 import com.parking.repository.ParkingRepository;
@@ -49,11 +47,11 @@ class ParkingServiceTest {
 		Parking parking = createParkingObject();
 		when(ownerRepository.findPersonByRegNo(any())).thenReturn(Optional.of(parking));
 
-		PersonDetails owner = parkingService.getOwnerDetails(vehicleRegNo);
+		ParkingDetails owner = parkingService.getOwnerDetails(vehicleRegNo);
 
 		assertNotNull(parking);
-		assertEquals(parking.getPerson().getName(), owner.getName());
-		assertEquals(parking.getPerson(), parking.getPerson());
+		assertEquals(parking.getName(), owner.getName());
+		assertEquals(parking, parking);
 		verify(ownerRepository, times(1)).findPersonByRegNo(Matchers.eq(vehicleRegNo));
 	}
 
@@ -78,7 +76,7 @@ class ParkingServiceTest {
 
 		assertNotNull(parking);
 		assertEquals(parking.getId(), parkingDetails.getId());
-		assertEquals(parking.getPerson().getName(), parkingDetails.getPerson().getName());
+		assertEquals(parking.getName(), parkingDetails.getName());
 		assertEquals(parking.getVehicles().get(0).getColour(), parkingDetails.getVehicles().get(0).getColour());
 		verify(parkingRepository, times(1)).findParkingById(Matchers.eq(parkingId));
 	}
@@ -107,12 +105,11 @@ class ParkingServiceTest {
 	}
 
 	private Parking createParkingObject() {
-		Person ownerDetails = new Person.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com")
-				.building("9c").seat("").workNumber("77").build();
 		List<Vehicle> vehicleList = new ArrayList<>();
 		vehicleList.add(new Vehicle.Builder().colour("blue").make("audi").reg("12345").build());
 
-		return new Parking("1", ownerDetails, vehicleList);
+		return new Parking.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com").building("9c")
+				.seat("").workNumber("77").vehicles(vehicleList).build();
 	}
 
 }

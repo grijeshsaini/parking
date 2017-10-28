@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.parking.dto.ParkingDetails;
-import com.parking.dto.PersonDetails;
 import com.parking.service.ParkingService;
 
 @RestController
@@ -22,11 +21,11 @@ public class ParkingController {
 	}
 
 	@GetMapping("/owner/{vehicleNo}")
-	public ResponseEntity<PersonDetails> getOwnerDetails(@PathVariable String vehicleNo) {
-		PersonDetails owner = parkingService.getOwnerDetails(vehicleNo);
+	public ResponseEntity<ParkingDetails> getOwnerDetails(@PathVariable String vehicleNo) {
+		ParkingDetails owner = parkingService.getOwnerDetails(vehicleNo);
 		return ResponseEntity.ok(owner);
 	}
-	
+
 	@GetMapping("/parking/{parkingId}")
 	public ResponseEntity<ParkingDetails> getParkingDetails(@PathVariable String parkingId) {
 		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));

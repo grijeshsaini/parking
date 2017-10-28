@@ -20,7 +20,6 @@ import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
 import com.parking.dto.ParkingDetails;
-import com.parking.dto.PersonDetails;
 import com.parking.dto.VehicleDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.service.ParkingService;
@@ -42,12 +41,12 @@ public class ParkingControllerTest {
 	@DisplayName("Should return Person details")
 	public void should_return_person_details() {
 		ParkingDetails parkingDetails = createParkingObject();
-		when(parkingService.getOwnerDetails(any())).thenReturn(parkingDetails.getPerson());
+		when(parkingService.getOwnerDetails(any())).thenReturn(parkingDetails);
 
-		ResponseEntity<PersonDetails> details = parkingController.getOwnerDetails("ABCD1234");
+		ResponseEntity<ParkingDetails> details = parkingController.getOwnerDetails("ABCD1234");
 
 		assertEquals(200, details.getStatusCodeValue());
-		assertSame(parkingDetails.getPerson(), details.getBody());
+		assertSame(parkingDetails, details.getBody());
 	}
 
 	@Test
@@ -92,8 +91,7 @@ public class ParkingControllerTest {
 		List<VehicleDetails> vehicleList = new ArrayList<>();
 		vehicleList.add(new VehicleDetails.Builder().colour("blue").make("audi").regNo("12345").build());
 
-		return new ParkingDetails("123", new PersonDetails.Builder().name("Test").emailAddress("test@abc.com").build(),
-				vehicleList);
+		return new ParkingDetails.Builder().name("Test").emailAddress("test@abc.com").vehicles(vehicleList).build();
 	}
 
 }
