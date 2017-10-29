@@ -51,7 +51,7 @@ public class ParkingServiceImpl implements ParkingService {
 	@Override
 	public CarOwners getCarOwners() {
 		List<ParkingDetails> collect = parkingRepository.findAll().stream()
-				.map(parkingDetailsConverter)
+				.map(Util::buildParkingDetails)
 				.collect(Collectors.toList());
 		return new CarOwners(collect);
 	}

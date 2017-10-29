@@ -76,9 +76,7 @@ public class ParkingControllerTest {
 	@Test
 	@DisplayName("should return all user details")
 	public void should_return_all_user_and_vehicleDetails(){
-		CarOwners carOwners = new CarOwners(Collections.singletonList(new ParkingDetails("id",
-				new PersonDetails.Builder().name("asdas").build(),
-				Collections.emptyList())));
+		CarOwners carOwners = new CarOwners(Collections.singletonList(new ParkingDetails.Builder().id("id").name("asdas").build()));
 		when(parkingService.getCarOwners()).thenReturn(carOwners);
 
 		ResponseEntity<CarOwners> response = parkingController.getCarOwners();
