@@ -38,4 +38,11 @@ dependencies {
 
     testCompile group: 'org.junit.jupiter', name:'junit-jupiter-api', version: junit_jupiter_version
     testCompile group: 'org.junit.jupiter', name:'junit-jupiter-engine', version: junit_jupiter_version
+    
+    
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.8.RELEASE'
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.2.0.RELEASE'
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")	
+    
 }
