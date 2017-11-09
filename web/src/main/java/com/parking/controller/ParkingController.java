@@ -12,6 +12,7 @@ import com.parking.dto.ParkingDetails;
 import com.parking.service.ParkingService;
 
 @RestController
+@CrossOrigin("*")
 public class ParkingController {
 
 	private ParkingService parkingService;
@@ -32,7 +33,6 @@ public class ParkingController {
 		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));
 	}
 
-	@CrossOrigin(origins = "*")
 	@GetMapping("/parking/vehicle/{vehicleNo}")
 	public ResponseEntity<String> isVehicleNumberValid(@PathVariable String vehicleNo){
 		parkingService.getOwnerDetails(vehicleNo);
