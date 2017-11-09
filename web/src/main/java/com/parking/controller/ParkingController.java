@@ -32,7 +32,7 @@ public class ParkingController {
 		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));
 	}
 
-	@CrossOrigin
+	@CrossOrigin(origins = "*")
 	@GetMapping("/parking/vehicle/{vehicleNo}")
 	public ResponseEntity<String> isVehicleNumberValid(@PathVariable String vehicleNo){
 		parkingService.getOwnerDetails(vehicleNo);
