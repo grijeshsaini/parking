@@ -31,6 +31,12 @@ public class ParkingController {
 		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));
 	}
 
+	@GetMapping("/parking/vehicle/{vehicleNo}")
+	public ResponseEntity<String> isVehicleNumberValid(@PathVariable String vehicleNo){
+		parkingService.getOwnerDetails(vehicleNo);
+		return ResponseEntity.ok("OK");
+	}
+
 	@GetMapping("/parking")
 	public ResponseEntity<CarOwners> getCarOwners() {
 		return ResponseEntity.ok(parkingService.getCarOwners());
