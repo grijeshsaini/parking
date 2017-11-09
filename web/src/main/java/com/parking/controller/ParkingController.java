@@ -3,6 +3,7 @@ package com.parking.controller;
 import com.parking.dto.CarOwners;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ public class ParkingController {
 		return ResponseEntity.ok(parkingService.getParkingDetails(parkingId));
 	}
 
+	@CrossOrigin
 	@GetMapping("/parking/vehicle/{vehicleNo}")
 	public ResponseEntity<String> isVehicleNumberValid(@PathVariable String vehicleNo){
 		parkingService.getOwnerDetails(vehicleNo);
