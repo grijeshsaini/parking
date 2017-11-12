@@ -23,10 +23,7 @@ public class ParkingServiceImpl implements ParkingService {
 	private OwnerRepository ownerRepository;
 	private ParkingRepository parkingRepository;
 
-	/*private Function<List<Parking>, List<ParkingDetails>> parkingDetails = (parkings) ->
-			parkings.stream().map(parkingDetailsConverter);
-	private Function<List<Parking>, CarOwners> ownerConverter = (parkings) -> new CarOwners(parkingDetailsConverter());
-	*/@Autowired
+	@Autowired
 	public ParkingServiceImpl(OwnerRepository ownerRepository, ParkingRepository parkingRepository) {
 		this.ownerRepository = ownerRepository;
 		this.parkingRepository = parkingRepository;

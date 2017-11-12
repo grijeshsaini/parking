@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "parkingInfo")
 public class Parking {
@@ -13,6 +14,7 @@ public class Parking {
 	private String name;
 	private String mobileNumber;
 	private String workNumber;
+	@Field("businessEmailAddress")
 	private String emailAddress;
 	private String building;
 	private String floor;

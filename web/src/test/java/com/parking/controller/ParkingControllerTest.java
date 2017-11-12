@@ -85,6 +85,18 @@ public class ParkingControllerTest {
 		assertSame(carOwners, response.getBody());
 	}
 
+
+	@Test
+	@DisplayName("should return OK when vehicle number is valid")
+	public void should_return_ok_when_vehicle_number_is_valid(){
+		ParkingDetails parkingDetails = createParkingObject();
+		when(parkingService.getOwnerDetails(any())).thenReturn(parkingDetails);
+
+		ResponseEntity<String> details = parkingController.isVehicleNumberValid("ABCD1234");
+
+		assertEquals(200, details.getStatusCodeValue());
+	}
+
 	private ParkingDetails createParkingObject() {
 		List<VehicleDetails> vehicleList = new ArrayList<>();
 		vehicleList.add(new VehicleDetails.Builder().colour("blue").make("audi").regNo("12345").build());

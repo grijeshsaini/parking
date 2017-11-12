@@ -1,75 +1,84 @@
-package com.parking.model;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.github.vlsidlyarevich.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name = "users")
-public class User implements UserDetails {
-	
-	static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id", nullable = false, updatable = false)
-	private Long id;
-	
-	@Column(name = "username", nullable = false, unique = true)
-	private String username;
-	
-	@Column(name = "password", nullable = false)
-	private String password;
-	
-	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
+import java.util.Collection;
+import java.util.List;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		return authorities;
-	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+public class User extends BaseEntity implements UserDetails {
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// we never lock accounts
-		return true;
-	}
+    private static final long serialVersionUID = 7954325925563724664L;
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// credentials never expire
-		return true;
-	}
+    private List<Authority> authorities;
+    private String username;
+    private String password;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean isEnabled;
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setAuthorities(final List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    public void setAccountNonExpired(final boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(final boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(final boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(final boolean enabled) {
+        isEnabled = enabled;
+    }
 }
