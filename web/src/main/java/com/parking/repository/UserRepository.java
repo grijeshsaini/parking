@@ -1,9 +1,12 @@
 package com.parking.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.parking.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-	User findOneByUsername(String username);
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+	Optional<User> findOneByUsername(String username);
 }

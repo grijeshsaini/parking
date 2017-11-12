@@ -1,4 +1,4 @@
-package com.github.vlsidlyarevich.model;
+package com.parking.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class User extends BaseEntity implements UserDetails {
 
-    private static final long serialVersionUID = 7954325925563724664L;
+    private static final long serialVersionUID = 1L;
 
     private List<Authority> authorities;
     private String username;

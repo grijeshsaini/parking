@@ -43,8 +43,5 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("parking").secret("secret").accessTokenValiditySeconds(expiration)
 				.scopes("read", "write").authorizedGrantTypes("password", "refresh_token").resourceIds("resource");
-		
-//		System.out.println("encrypt... "+passwordEncoder().encode("pass"));
-//		System.out.println("encrypt... "+passwordEncoder().matches("pass","$2a$10$R1XOrVpVfrYoBcP2KCXBIuFZ6gvVasJt.tnmXw/X6AAo20Ip3yLLC"));
 	}
 }

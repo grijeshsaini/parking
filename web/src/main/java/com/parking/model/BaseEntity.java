@@ -1,4 +1,4 @@
-package com.github.vlsidlyarevich.model;
+package com.parking.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 
-@Document
+@Document(collection = "user")
 public class BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 8571261118900116242L;
+    private static final long serialVersionUID = 12313L;
 
     @Id
     private String id;
