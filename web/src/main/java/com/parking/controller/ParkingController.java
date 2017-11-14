@@ -1,11 +1,18 @@
 package com.parking.controller;
 
 import com.parking.dto.CarOwners;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.parking.dto.ParkingDetails;
@@ -42,5 +49,24 @@ public class ParkingController {
 	@GetMapping("/parking")
 	public ResponseEntity<CarOwners> getCarOwners() {
 		return ResponseEntity.ok(parkingService.getCarOwners());
+	}
+	
+	@PostMapping(path = "/parking", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<HttpStatus> saveParkingDetails(@RequestBody @Valid ParkingDetails parkingDetails){
+		parkingService.saveParking(parkingDetails);
+		return ResponseEntity.ok(HttpStatus.CREATED);
+		
+	}
+	
+	@DeleteMapping(path = "/parking/{parkingId}")
+	public ResponseEntity<HttpStatus> deleteParkingDetails(@PathVariable String parkingId){
+		parkingService.deleteParking(parkingId);
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+	
+	@DeleteMapping(path = "/parking/vehicle/{vehicleNo}")
+	public ResponseEntity<HttpStatus> deleteParkingDetailsByVehicleRegNo(@PathVariable String vehicleNo){
+		parkingService.deleteParkingByVehicleRegNo(vehicleNo);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 }

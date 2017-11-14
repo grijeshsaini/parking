@@ -4,21 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.parking.dto.CarOwners;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.parking.dto.CarOwners;
 import com.parking.dto.ParkingDetails;
 import com.parking.dto.VehicleDetails;
 import com.parking.exceptions.DataNotFoundException;
@@ -102,6 +106,26 @@ public class ParkingControllerTest {
 		vehicleList.add(new VehicleDetails.Builder().colour("blue").make("audi").regNo("12345").build());
 
 		return new ParkingDetails.Builder().name("Test").emailAddress("test@abc.com").vehicles(vehicleList).build();
+	}
+	
+	@Test
+	@DisplayName("should insert parking details")
+	public void should_insert_parking_details(){
+		ParkingDetails parkingDetails = createParkingObject();
+		when(parkingService.saveParking(any())).thenReturn(any());
+		ResponseEntity<HttpStatus> status = parkingController.saveParkingDetails(parkingDetails);
+		
+		assertEquals(200, status.getStatusCodeValue());
+	}
+	
+	@Test
+	@DisplayName("should delete parking details")
+	public void should_delete_parking_details(){
+		Mockito.doNothing().when(parkingService).deleteParking(any());
+		ResponseEntity<HttpStatus> status = parkingController.deleteParkingDetails("123");
+		
+		verify(parkingService, times(1)).deleteParking(Matchers.eq("123"));
+		assertEquals(200, status.getStatusCodeValue());
 	}
 
 }

@@ -2,13 +2,12 @@ package com.parking.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.parking.dto.CarOwners;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.parking.dto.CarOwners;
 import com.parking.dto.ParkingDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.model.Parking;
@@ -51,5 +50,21 @@ public class ParkingServiceImpl implements ParkingService {
 				.map(Util::buildParkingDetails)
 				.collect(Collectors.toList());
 		return new CarOwners(collect);
+	}
+
+	@Override
+	public Parking saveParking(ParkingDetails parkingDetails) {
+		return parkingRepository.save(Util.buildParking(parkingDetails));
+		
+	}
+
+	@Override
+	public void deleteParking(String parkingId) {
+		parkingRepository.delete(parkingId);
+	}
+
+	@Override
+	public void deleteParkingByVehicleRegNo(String vehicleNo) {
+		parkingRepository.deleteParkingByRegNo(vehicleNo);
 	}
 }

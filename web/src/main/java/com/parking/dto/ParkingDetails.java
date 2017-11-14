@@ -2,8 +2,13 @@ package com.parking.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ParkingDetails {
 
+	@NotNull
+	@Size(min=1, message="id should not be empty")
 	private String id;
 	private String name;
 	private String mobileNumber;

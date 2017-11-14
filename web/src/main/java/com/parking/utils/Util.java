@@ -18,14 +18,31 @@ public class Util {
 	}
 
 	public static List<VehicleDetails> buildVehicleDetails(List<Vehicle> vehicles) {
-		if (null!=vehicles) {
+		if (null != vehicles) {
 			return vehicles.stream()
 					.map(vehicle -> new VehicleDetails.Builder().colour(vehicle.getColour()).make(vehicle.getMake())
-							.model(vehicle.getModel()).regNo(vehicle.getreg()).type(vehicle.getType())
-							.colour(vehicle.getColour()).build())
+							.model(vehicle.getModel()).regNo(vehicle.getreg()).type(vehicle.getType()).build())
 					.collect(Collectors.toList());
 		}
 		return null;
+	}
+
+	public static List<Vehicle> buildVehicles(List<VehicleDetails> vehicleDetails) {
+		if (null != vehicleDetails) {
+			return vehicleDetails.stream()
+					.map(vehicleDetail -> new Vehicle.Builder().colour(vehicleDetail.getColour())
+							.model(vehicleDetail.getModel()).reg(vehicleDetail.getRegNo()).type(vehicleDetail.getType())
+							.make(vehicleDetail.getMake()).build())
+					.collect(Collectors.toList());
+		}
+		return null;
+	}
+	
+	public static Parking buildParking(ParkingDetails parkingDetails){
+		return new Parking.Builder().id(parkingDetails.getId()).name(parkingDetails.getName()).building(parkingDetails.getBuilding())
+				.emailAddress(parkingDetails.getEmailAddress()).floor(parkingDetails.getFloor())
+				.mobileNumber(parkingDetails.getMobileNumber()).seat(parkingDetails.getSeat()).workNumber(parkingDetails.getWorkNumber())
+				.vehicles(Util.buildVehicles(parkingDetails.getVehicles())).build();
 	}
 
 }

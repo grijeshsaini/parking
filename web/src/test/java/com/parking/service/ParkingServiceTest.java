@@ -1,21 +1,29 @@
 package com.parking.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import com.parking.dto.CarOwners;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.parking.dto.CarOwners;
 import com.parking.dto.ParkingDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.model.Parking;
@@ -23,6 +31,7 @@ import com.parking.model.Vehicle;
 import com.parking.repository.OwnerRepository;
 import com.parking.repository.ParkingRepository;
 import com.parking.service.impl.ParkingServiceImpl;
+import com.parking.utils.Util;
 
 class ParkingServiceTest {
 
@@ -109,5 +118,22 @@ class ParkingServiceTest {
 		return new Parking.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com").building("9c")
 				.seat("").workNumber("77").vehicles(vehicleList).build();
 	}
+	
+	@Test
+	@DisplayName("should save parking details")
+	public void should_save_parking_details(){
+		when(parkingRepository.save(Matchers.any(Parking.class))).thenReturn(createParkingObject());
+		Parking parking = parkingService.saveParking(Util.buildParkingDetails(createParkingObject()));
+		assertSame(createParkingObject().getName(), parking.getName());
 
+	}
+
+	@Test
+	@DisplayName("should delete parking details")
+	public void should_delete_parking_details(){
+		Mockito.doNothing().when(parkingRepository).delete(Matchers.any(String.class));
+		parkingService.deleteParking("123");
+		verify(parkingRepository, times(1)).delete(Matchers.eq("123"));
+
+	}
 }
