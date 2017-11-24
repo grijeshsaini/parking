@@ -101,10 +101,10 @@ class ParkingServiceTest {
 
 	@Test
 	@DisplayName("should return all car owners")
-	public void should_return_all_car_owners(){
-		CarOwners carOwners = new CarOwners(Collections.singletonList(new ParkingDetails.Builder().id("id").name("Test").build()));
-		when(parkingRepository.findAll()).thenReturn(Arrays.asList(createParkingObject(),
-				createParkingObject()));
+	public void should_return_all_car_owners() {
+		CarOwners carOwners = new CarOwners(
+				Collections.singletonList(new ParkingDetails.Builder().id("id").name("Test").build()));
+		when(parkingRepository.findAll()).thenReturn(Arrays.asList(createParkingObject(), createParkingObject()));
 		CarOwners owners = parkingService.getCarOwners();
 
 		assertSame(carOwners.getParkingDetails().get(0).getName(), owners.getParkingDetails().get(0).getName());
@@ -118,10 +118,10 @@ class ParkingServiceTest {
 		return new Parking.Builder().name("Test").mobileNumber("12345678").emailAddress("test@abc.com").building("9c")
 				.seat("").workNumber("77").vehicles(vehicleList).build();
 	}
-	
+
 	@Test
 	@DisplayName("should save parking details")
-	public void should_save_parking_details(){
+	public void should_save_parking_details() {
 		when(parkingRepository.save(Matchers.any(Parking.class))).thenReturn(createParkingObject());
 		Parking parking = parkingService.saveParking(Util.buildParkingDetails(createParkingObject()));
 		assertSame(createParkingObject().getName(), parking.getName());
@@ -130,7 +130,7 @@ class ParkingServiceTest {
 
 	@Test
 	@DisplayName("should delete parking details")
-	public void should_delete_parking_details(){
+	public void should_delete_parking_details() {
 		Mockito.doNothing().when(parkingRepository).delete(Matchers.any(String.class));
 		parkingService.deleteParking("123");
 		verify(parkingRepository, times(1)).delete(Matchers.eq("123"));

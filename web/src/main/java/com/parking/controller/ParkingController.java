@@ -1,7 +1,5 @@
 package com.parking.controller;
 
-import com.parking.dto.CarOwners;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +13,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.parking.dto.CarOwners;
 import com.parking.dto.ParkingDetails;
+import com.parking.dto.UserDeviceDetails;
 import com.parking.service.ParkingService;
+import com.parking.service.UserDeviceService;
 
 @RestController
 @CrossOrigin("*")
 public class ParkingController {
 
 	private ParkingService parkingService;
+	
+	private UserDeviceService userDeviceService;
 
 	@Autowired
-	public ParkingController(ParkingService parkingService) {
+	public ParkingController(ParkingService parkingService, UserDeviceService userDeviceService) {
 		this.parkingService = parkingService;
+		this.userDeviceService = userDeviceService;
 	}
 
 	@GetMapping("/owner/{vehicleNo}")
@@ -68,5 +72,17 @@ public class ParkingController {
 	public ResponseEntity<HttpStatus> deleteParkingDetailsByVehicleRegNo(@PathVariable String vehicleNo){
 		parkingService.deleteParkingByVehicleRegNo(vehicleNo);
 		return ResponseEntity.ok(HttpStatus.OK);
+	}
+	
+	@PostMapping(path="/userDevice", consumes = "application/json", produces="application/json")
+	public ResponseEntity<HttpStatus> saveDeviceDetails(@RequestBody UserDeviceDetails userDeviceDetails ){
+		userDeviceService.saveUserDevice(userDeviceDetails);
+		return ResponseEntity.ok(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/userDevice/{id:.+}")
+	public ResponseEntity<UserDeviceDetails> getUserDetails(@PathVariable String id){
+		UserDeviceDetails userDeviceDetails = userDeviceService.getUserDeviceDetails(id);
+		return ResponseEntity.ok(userDeviceDetails);
 	}
 }

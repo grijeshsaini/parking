@@ -24,21 +24,25 @@ import org.springframework.http.ResponseEntity;
 
 import com.parking.dto.CarOwners;
 import com.parking.dto.ParkingDetails;
+import com.parking.dto.UserDeviceDetails;
 import com.parking.dto.VehicleDetails;
 import com.parking.exceptions.DataNotFoundException;
 import com.parking.service.ParkingService;
+import com.parking.service.UserDeviceService;
 
 public class ParkingControllerTest {
 
 	@Mock
 	private ParkingService parkingService;
+	@Mock
+	private UserDeviceService userService;
 
 	private ParkingController parkingController;
 
 	@BeforeEach
 	public void setup() {
 		initMocks(this);
-		parkingController = new ParkingController(parkingService);
+		parkingController = new ParkingController(parkingService, userService);
 	}
 
 	@Test
@@ -126,6 +130,37 @@ public class ParkingControllerTest {
 		
 		verify(parkingService, times(1)).deleteParking(Matchers.eq("123"));
 		assertEquals(200, status.getStatusCodeValue());
+	}
+	
+	@Test
+	@DisplayName("should insert user device details")
+	public void should_insert_user_device_details(){
+		UserDeviceDetails userDeviceDetails = createUserDeviceDetailsObject();
+		when(userService.saveUserDevice(any())).thenReturn(any());
+		ResponseEntity<HttpStatus> status = parkingController.saveDeviceDetails(userDeviceDetails);
+		
+		assertEquals(200, status.getStatusCodeValue());
+	}
+
+	private UserDeviceDetails createUserDeviceDetailsObject() {
+		List<String> deviceList = new ArrayList<String>();
+		deviceList.add("A1234B");
+		
+		UserDeviceDetails userDeviceDetails = new UserDeviceDetails("abc.xyz", deviceList);
+		return userDeviceDetails;
+	}
+	
+	@Test
+	@DisplayName("should return user device details")
+	public void should_return_user_device_details() {
+		UserDeviceDetails userDeviceDetails = createUserDeviceDetailsObject();
+		when(userService.getUserDeviceDetails(any())).thenReturn(userDeviceDetails);
+
+		ResponseEntity<UserDeviceDetails> details = parkingController.getUserDetails("abc.xyz");
+
+		assertEquals(200, details.getStatusCodeValue());
+		assertSame(userDeviceDetails, details.getBody());
+
 	}
 
 }

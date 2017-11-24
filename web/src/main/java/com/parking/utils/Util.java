@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.parking.dto.ParkingDetails;
+import com.parking.dto.UserDeviceDetails;
 import com.parking.dto.VehicleDetails;
 import com.parking.model.Parking;
+import com.parking.model.UserDevice;
 import com.parking.model.Vehicle;
 
 public class Util {
@@ -37,12 +39,20 @@ public class Util {
 		}
 		return null;
 	}
-	
-	public static Parking buildParking(ParkingDetails parkingDetails){
-		return new Parking.Builder().id(parkingDetails.getId()).name(parkingDetails.getName()).building(parkingDetails.getBuilding())
-				.emailAddress(parkingDetails.getEmailAddress()).floor(parkingDetails.getFloor())
-				.mobileNumber(parkingDetails.getMobileNumber()).seat(parkingDetails.getSeat()).workNumber(parkingDetails.getWorkNumber())
+
+	public static Parking buildParking(ParkingDetails parkingDetails) {
+		return new Parking.Builder().id(parkingDetails.getId()).name(parkingDetails.getName())
+				.building(parkingDetails.getBuilding()).emailAddress(parkingDetails.getEmailAddress())
+				.floor(parkingDetails.getFloor()).mobileNumber(parkingDetails.getMobileNumber())
+				.seat(parkingDetails.getSeat()).workNumber(parkingDetails.getWorkNumber())
 				.vehicles(Util.buildVehicles(parkingDetails.getVehicles())).build();
 	}
 
+	public static UserDevice buildUserDevice(UserDeviceDetails userDeviceDetails) {
+		return new UserDevice(userDeviceDetails.getId(), userDeviceDetails.getDeviceIds());
+	}
+
+	public static UserDeviceDetails buildUserDeviceDetails(UserDevice userDevice) {
+		return new UserDeviceDetails(userDevice.getId(), userDevice.getDeviceIds());
+	}
 }
